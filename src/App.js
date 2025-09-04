@@ -9,6 +9,7 @@ import Developer from "./pages/Developer";
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
 
+  console.log("user role :",user.role)
   return (
     <BrowserRouter>
       <Navbar />
@@ -17,9 +18,9 @@ function App() {
         {user ? (
           <>
             <Route path="/dashboard" element={<Dashboard />} />
-            {user.role === "manager" && <Route path="/manager" element={<Manager />} />}
-            {user.role === "teamlead" && <Route path="/teamlead" element={<TeamLead />} />}
-            {user.role === "developer" && <Route path="/developer" element={<Developer />} />}
+            {user.role === "Manager" && <Route path="/manager" element={<Manager />} />}
+            {user.role === "TeamLead" && <Route path="/teamlead" element={<TeamLead />} />}
+            {user.role === "Developer" && <Route path="/developer" element={<Developer />} />}
             <Route path="*" element={<Navigate to="/dashboard" />} />
           </>
         ) : (

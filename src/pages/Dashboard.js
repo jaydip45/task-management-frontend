@@ -9,9 +9,9 @@ export default function Dashboard() {
   return (
     <Container sx={{ mt: 3 }}>
       <Typography variant="h5" mb={2}>Dashboard</Typography>
-      {user.role === "manager" && <Manager />}
-      {user.role === "teamlead" && <TeamLead />}
-      {user.role === "developer" && <Developer />}
+      {user.role === "Manager" && <Manager />}
+      {user.role === "TeamLead" && <TeamLead />}
+      {user.role === "Developer" && <Developer />}
     </Container>
   );
 }

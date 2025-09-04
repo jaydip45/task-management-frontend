@@ -7,7 +7,7 @@ const API = axios.create({
 API.interceptors.request.use((req) => {
   const user = localStorage.getItem("user");
   if (user) {
-    req.headers["x-user-id"] = JSON.parse(user)._id;
+    req.headers["x-user-id"] = JSON.parse(user).id;
   }
   return req;
 });

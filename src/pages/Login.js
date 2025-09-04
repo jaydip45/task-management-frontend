@@ -10,7 +10,7 @@ export default function Login() {
 
   const handleLogin = async () => {
     try {
-      const res = await API.post("/api/users/login", { email, role });
+      const res = await API.post("/users/login", { email, role });
       localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/dashboard");
     } catch (err) {
@@ -30,9 +30,9 @@ export default function Login() {
       />
       <TextField
         fullWidth
-        label="Role (manager, teamlead, developer)"
+        label="Role (Manager, TeamLead, Seveloper)"
         value={role}
-        onChange={(e) => setRole(e.target.value.toLowerCase())}
+        onChange={(e) => setRole(e.target.value)}
         sx={{ mb: 2 }}
       />
       <Button variant="contained" fullWidth onClick={handleLogin}>
