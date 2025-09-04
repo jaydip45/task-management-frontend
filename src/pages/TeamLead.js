@@ -37,10 +37,16 @@ export default function TeamLead() {
 
   useEffect(() => {
     API.get("/tasks/all")
-      .then((res) =>
-        setTasks(res.data.filter((t) => t.assignedBy?.role === "TeamLead"))
-      )
-      .catch((err) => console.error(err));
+    .then((res) => {
+      setTasks(
+        res.data.filter(
+          (t) =>
+            t.assignedBy?.role === "TeamLead" ||
+            t.assignee?.role === "TeamLead"
+        )
+      );
+    })
+    .catch((err) => console.error(err));
 
       API.get("/users")
       .then((res) => {
@@ -96,14 +102,6 @@ export default function TeamLead() {
     }
   };
 
-  const calculateTimeTaken = (assignedDate, actualDeliveryDate) => {
-    if (!actualDeliveryDate) return "-";
-    const diff =
-      new Date(actualDeliveryDate).getTime() -
-      new Date(assignedDate).getTime();
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    return `${days} Day${days > 1 ? "s" : ""}`;
-  };
 
   return (
     <Container sx={{ mt: 3 }}>
@@ -151,9 +149,7 @@ export default function TeamLead() {
                     ? new Date(t.actualDeliveryDate).toLocaleDateString()
                     : "-"}
                 </TableCell>
-                <TableCell>
-                  {calculateTimeTaken(t.assignedDate, t.actualDeliveryDate)}
-                </TableCell>
+                <TableCell>{t.timeTaken || "-"}</TableCell>
                 <TableCell>{t.status}</TableCell>
                 <TableCell>
                   <span

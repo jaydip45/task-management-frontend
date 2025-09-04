@@ -70,14 +70,6 @@ export default function Developer() {
     }
   };
 
-  const calculateTimeTaken = (assignedDate, actualDeliveryDate) => {
-    if (!actualDeliveryDate) return "-";
-    const diff =
-      new Date(actualDeliveryDate).getTime() -
-      new Date(assignedDate).getTime();
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    return `${days} Day${days > 1 ? "s" : ""}`;
-  };
 
   return (
     <Container sx={{ mt: 3 }}>
@@ -85,7 +77,6 @@ export default function Developer() {
         Developer Dashboard
       </Typography>
 
-      {/* Task Table */}
       <TableContainer component={Paper} elevation={3}>
         <Table>
           <TableHead>
@@ -128,9 +119,7 @@ export default function Developer() {
                     ? new Date(t.actualDeliveryDate).toLocaleDateString()
                     : "-"}
                 </TableCell>
-                <TableCell>
-                  {calculateTimeTaken(t.assignedDate, t.actualDeliveryDate)}
-                </TableCell>
+                <TableCell>{t.timeTaken || "-"}</TableCell>
                 <TableCell>{t.status}</TableCell>
                 <TableCell>
                   <span
@@ -160,7 +149,6 @@ export default function Developer() {
         </Table>
       </TableContainer>
 
-      {/* Action Menu */}
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
@@ -169,7 +157,6 @@ export default function Developer() {
         <MenuItem onClick={handleOpenDialog}>Add Comment</MenuItem>
       </Menu>
 
-      {/* Dialog for adding comment */}
       <Dialog open={openDialog} onClose={handleDialogClose} fullWidth maxWidth="sm">
         <DialogTitle>Add Comment for: {selectedTask?.title}</DialogTitle>
         <DialogContent>

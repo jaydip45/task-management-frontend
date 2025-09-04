@@ -9,7 +9,6 @@ import Developer from "./pages/Developer";
 function App() {
   const user = JSON.parse(localStorage.getItem("user"));
 
-  console.log("user role :",user.role)
   return (
     <BrowserRouter>
       <Navbar />

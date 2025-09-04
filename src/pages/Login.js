@@ -13,6 +13,7 @@ export default function Login() {
       const res = await API.post("/users/login", { email, role });
       localStorage.setItem("user", JSON.stringify(res.data.user));
       navigate("/dashboard");
+      alert("Login done");
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }
@@ -30,7 +31,7 @@ export default function Login() {
       />
       <TextField
         fullWidth
-        label="Role (Manager, TeamLead, Seveloper)"
+        label="Role (Manager, TeamLead, Developer)"
         value={role}
         onChange={(e) => setRole(e.target.value)}
         sx={{ mb: 2 }}

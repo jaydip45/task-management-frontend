@@ -33,7 +33,7 @@ export default function Manager() {
   useEffect(() => {
     API.get("/tasks/all")
       .then((res) =>
-        setTasks(res.data.filter((t) => t.assignedBy?.role === "Manager"))
+        setTasks(res.data)
       )
       .catch((err) => console.error(err));
 
@@ -68,15 +68,6 @@ export default function Manager() {
     } catch (err) {
       alert(err.response?.data?.message || "Error creating task");
     }
-  };
-
-  const calculateTimeTaken = (assignedDate, actualDeliveryDate) => {
-    if (!actualDeliveryDate) return "-";
-    const diff =
-      new Date(actualDeliveryDate).getTime() -
-      new Date(assignedDate).getTime();
-    const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    return `${days} Day${days > 1 ? "s" : ""}`;
   };
 
   return (
@@ -132,9 +123,7 @@ export default function Manager() {
                     ? new Date(t.actualDeliveryDate).toLocaleDateString()
                     : "-"}
                 </TableCell>
-                <TableCell>
-                  {calculateTimeTaken(t.assignedDate, t.actualDeliveryDate)}
-                </TableCell>
+                <TableCell>{t.timeTaken || "-"}</TableCell>
                 <TableCell>{t.status}</TableCell>
                 <TableCell>
                   <span
